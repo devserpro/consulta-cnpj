@@ -6,24 +6,26 @@ A plataforma APIGOV (Plataforma que contempla todas as API's disponibilizadas e 
 
 <img title="Processo de autenticação e autorização APIS" src="https://raw.githubusercontent.com/devserpro/consulta-cpf/master/img/oauth.png" style="width=50%;" />
 
-## Como fazer consultas
+## Como fazer consultas a API CNPJ
 
-Para consumir a API Consulta CPF, você deverá utilizar os dois códigos (Consumer Key e Consumer Secret) disponibilizados na Área do Cliente. Esses códigos servem para identificar o contrato e deverão ser informados sempre que uma consulta for realizada.
+Para consumir a API Consulta CNPJ, você deverá utilizar os dois códigos (Consumer Key e Consumer Secret) disponibilizados na Área do Cliente. Esses códigos servem para identificar o contrato e deverão ser informados sempre que uma consulta for realizada.
 Exemplos de códigos:
 
 **Consumer Key**: uldY78ZMvYm4btC0x3XZLG7ZTsYa
 
 **Consumer Secret**: WyUeBFCUK7wu1Ko61V7bb7yB2Uoa
 
-O APIGov utiliza o protocolo de autorização OAUTH2 para disponibilizar o acesso à API Consulta CPF. No exemplo abaixo, estamos utilizando o GranType Cliente Credentials para requisição de token e acesso a API:
+### 1 – Como solicitar o Token de Acesso (Bearer)
+Para consultar a API, é necessário obter um token de acesso temporário (Bearer). Esse token possui um tempo de validade e sempre que expirado, este passo de requisição de um novo token de acesso deve ser repetido. 
 
-### 1 – Como solicitar o Token de Acesso
-Para consultar a API, um Token deverá ser informado. O Token tem sua validade definida de acordo com a API. Para solicitar o Token, os seguintes procedimentos deverão ser realizados:
+Para solicitar o token temporário é necessário realizar uma requisição HTTP POST para o endpoint Token https://apigateway.serpro.gov.br/token, informando as credenciais de acesso(consumerKey:consumerSecret) no HTTP Header Authorization, no formato base64, conforme exemplo abaixo. As credenciais de acesso devem ser obtidas a partir do portal do cliente Serpro - https://minhaconta.serpro.gov.br
 
-Informe ao Gateway suas Credenciais de Acesso
-Faça uma requisição POST ao endereço https://apigateway.serpro.gov.br/token informando suas credenciais de acesso:
-[POST] grant_type=client_credentials[HEAD] Authorization: Basic base64(Consumer Key:Consumer Secret)
-Podemos, também, fazer essa chamada via cUrl da seguinte forma:
+```
+[POST] grant_type=client_credentials
+[HEAD] Authorization: Basic base64(Consumer Key:Consumer Secret)
+```
+
+Abaixo segue um exemplo de chamada via cUrl:
 
 ```curl
 curl -k -d "grant_type=client_credentials" -H "Authorization: Basic dWxkWTc4Wk12WW00YnRDMHgzWFpMRzdaVHNZYTpXeVVlQkZDVUs3d3UxS282MVY3YmI3eUIyVW9h" https://apigateway.serpro.gov.br/token
@@ -38,24 +40,15 @@ base64(uldY78ZMvYm4btC0x3XZLG7ZTsYa:WyUeBFCUK7wu1Ko61V7bb7yB2Uoa)
 
 **Receba o Token**
 
-O Gateway informará as informações do Token no seguinte padrão:
+Como resultado, o endpoint informará o token de acesso a API, no campo access_token da mensagem json de retorno. Este token deve ser informado nos próximos passos.
 
 ```json
-{"scope":"am_application_scope default","token_type":"Bearer","expires_in":3295,"access_token":"c66a7de41c96f7008a0c397dc588b6d7"}
+{"scope":"am_application_scope default","token_type":"Bearer","expires_in":3295,"access_token":"c66a7def1c96f7008a0c397dc588b6d7"}
 ```
-
-**scope**: Algumas APIs definem escopos diferentes para acessos a diferentes funcionalidades. Por exemplo: clientes com escopo de Leitura podem acessar somente funcionalidades de Leitura, escopo de escrita poderão consultar e incluir novos valores, escopo de deleção poderão consultar, incluir e deletar. Quando a API não possui esse tipo de recurso usa-se o escopo padrão.
-
-**token_type**: Define a forma como o token será enviado. Por padrão utilizamos Bearer.
-
-**expires_in**: Define o tempo em segundos em que o token expirará. Passado esse tempo será necessário realizar uma nova chamada.
-
-**access_token**: O token a ser enviado durante a requisição.
-
 
 **Renovação do Token de Acesso**
 
-Sempre que o token de acesso temporário expirar, o gateway vai retornar um _HTTP CODE 401_ após realizar uma requisição para uma API. Neste caso, deve ser repetido o passo anterior (**Como solicitar o Token de Acesso**) para geração de um novo token de acesso temporário.
+Atentar que sempre que o token de acesso temporário expirar, o gateway vai retornar um _HTTP CODE 401_ após realizar uma requisição para uma API. Neste caso, deve ser repetido o passo anterior (**Como solicitar o Token de Acesso (Bearer)**) para geração de um novo token de acesso temporário.
 
 
 ### 2 – Como realizar a consulta à API
