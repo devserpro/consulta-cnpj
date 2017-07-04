@@ -1,4 +1,4 @@
-# API Consulta CPF
+# API Consulta CNPJ
 
 API para acesso ao Cadastro de Pessoas Físicas diretamente das bases da Receita Federal do Brasil.
 
