@@ -2,10 +2,7 @@
 
 API para acesso ao Cadastro de Pessoas Físicas diretamente das bases da Receita Federal do Brasil.
 
-## Como funciona a autenticação e autorização
-
-Conforme imagem abaixo, o processo de autenticação e autorização de APIs funciona da seguinte maneira:
-AJUDA DO ROGÉRIO AQUI! :D
+A plataforma APIGOV (Plataforma que contempla todas as API's disponibilizadas e comercializadas pelo SERPRO) utiliza o protocolo Oauth2 - Client Credential Grant [https://tools.ietf.org/html/rfc6749#section-4.4] para realizar a autenticação e autorização de acesso para consumo das API's contratadas, conforme figura abaixo:
 
 <img title="Processo de autenticação e autorização APIS" src="https://raw.githubusercontent.com/devserpro/consulta-cpf/master/img/oauth.png" style="width=50%;" />
 
@@ -53,6 +50,12 @@ O Gateway informará as informações do Token no seguinte padrão:
 **expires_in**: Define o tempo em segundos em que o token expirará. Passado esse tempo será necessário realizar uma nova chamada.
 
 **access_token**: O token a ser enviado durante a requisição.
+
+
+**Renovação do Token de Acesso**
+
+Sempre que o token de acesso temporário expirar, o gateway vai retornar um _HTTP CODE 401_ após realizar uma requisição para uma API. Neste caso, deve ser repetido o passo anterior (**Como solicitar o Token de Acesso**) para geração de um novo token de acesso temporário.
+
 
 ### 2 – Como realizar a consulta à API
 
