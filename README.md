@@ -1,6 +1,6 @@
 # API Consulta CNPJ
 
-API para acesso ao Cadastro de Pessoas Físicas diretamente das bases da Receita Federal do Brasil.
+API para acesso ao Cadastro de Pessoas Jurídicas diretamente das bases da Receita Federal do Brasil.
 
 A plataforma APIGOV (Plataforma que contempla todas as API's disponibilizadas e comercializadas pelo SERPRO) utiliza o protocolo Oauth2 - Client Credential Grant ([https://tools.ietf.org/html/rfc6749#section-4.4](https://tools.ietf.org/html/rfc6749#section-4.4)) para realizar a autenticação e autorização de acesso para consumo das API's contratadas, conforme figura abaixo:
 
