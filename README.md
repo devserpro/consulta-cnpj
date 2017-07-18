@@ -11,9 +11,9 @@ A plataforma APIGOV (Plataforma que contempla todas as API's disponibilizadas e 
 Para consumir a API Consulta CNPJ, você deverá utilizar os dois códigos (Consumer Key e Consumer Secret) disponibilizados na Área do Cliente. Esses códigos servem para identificar o contrato e deverão ser informados sempre que uma consulta for realizada.
 Exemplos de códigos:
 
-**Consumer Key**: uldY78ZMvYm4btC0x3XZLG7ZTsYa
+**Consumer Key**: djaR21PGoYp1iyK2n2ACOH9REdUb
 
-**Consumer Secret**: WyUeBFCUK7wu1Ko61V7bb7yB2Uoa
+**Consumer Secret**: ObRsAJWOL4fv2Tp27D1vd8fB3Ote
 
 ### 1 – Como solicitar o Token de Acesso (Bearer)
 Para consultar a API, é necessário obter um token de acesso temporário (Bearer). Esse token possui um tempo de validade e sempre que expirado, este passo de requisição de um novo token de acesso deve ser repetido. 
@@ -28,14 +28,14 @@ Para solicitar o token temporário é necessário realizar uma requisição HTTP
 Abaixo segue um exemplo de chamada via cUrl:
 
 ```curl
-curl -k -d "grant_type=client_credentials" -H "Authorization: Basic dWxkWTc4Wk12WW00YnRDMHgzWFpMRzdaVHNZYTpXeVVlQkZDVUs3d3UxS282MVY3YmI3eUIyVW9h" https://apigateway.serpro.gov.br/token
+curl -k -d "grant_type=client_credentials" -H "Authorization: Basic ZGphUjIxUEdvWXAxaXlLMm4yQUNPSDlSRWRVYjpPYlJzQUpXT0w0ZnYyVHAyN0QxdmQ4ZkIzT3RlCg==" https://apigateway.serpro.gov.br/token
 ```
 
-A chave informada no exemplo acima "dWxkWTc4Wk12WW00YnRDMHgzWFpMRz
-daVHNZYTpXeVVlQkZDVUs3d3UxS282MVY3YmI3eUIyVW9h" é resultado do BASE64 dos códigos Consumer Key e Consumer Secret separados pelo caracter “:”, conforme exemplo a seguir:
+A chave informada no exemplo acima "ZGphUjIxUEdvWXAxaXlLMm4yQUNPSD
+lSRWRVYjpPYlJzQUpXT0w0ZnYyVHAyN0QxdmQ4ZkIzT3RlCg==" é resultado do BASE64 dos códigos Consumer Key e Consumer Secret separados pelo caracter “:”, conforme exemplo a seguir como linha de comando do Linux:
 
 ```curl
-base64(uldY78ZMvYm4btC0x3XZLG7ZTsYa:WyUeBFCUK7wu1Ko61V7bb7yB2Uoa)
+echo "djaR21PGoYp1iyK2n2ACOH9REdUb:ObRsAJWOL4fv2Tp27D1vd8fB3Ote" | base64
 ```
 
 **Receba o Token**
