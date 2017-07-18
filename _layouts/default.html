@@ -197,6 +197,7 @@
     };
     
     document.querySelector('.openPopup').addEventListener('click', function() {
+	window.scrollTo(0, 0);
 	var jPopupDemo = new jPopup({
 		contentHtml: '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="position:absolute;width:0;height:0">\
 				  <defs>\
