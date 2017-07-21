@@ -1,4 +1,4 @@
-# API Consulta CNPJ
+# API Consulta CNPJ <span id="trialSpan"></span>
 
 API para acesso ao Cadastro de Pessoas Jurídicas diretamente das bases da Receita Federal do Brasil.
 
