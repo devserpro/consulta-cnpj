@@ -1,0 +1,105 @@
+{"basePath":"/consulta-cnpj-trial/1",
+	"host":"apigateway.serpro.gov.br",
+	"security":[{"Bearer": []}],
+	"paths":{
+	  "/cnpj/{ni}":{
+	    "get":{
+		  "x-auth-type":"Application & Application User",
+		  "x-throttling-tier":"Unlimited",
+		  "description":"Retorna os dados do Cadastro Nacional de Pessoa Jurídica (CNPJ)\n",
+		  "parameters":[{
+		    "description":"Número de inscrição no CNPJ",
+		    "name":"ni",
+		    "required":true,
+		    "type":"number",
+		    "in":"path"}],
+		  "responses":{
+		    "200":{
+			  "schema":{"$ref":"#/definitions/CNPJ"},
+		      "description":"Retorna os dados do CNPJ"},
+			"400":{
+			  "description":"O número de inscrição informado não é válido."},
+			"404":{
+			  "description":"Não existe CNPJ com o número de inscrição informado."}
+		  }
+		}
+	  },
+	  "/cnpj/{ni}/socios":{
+	    "get":{
+		  "responses":{
+		    "200":{}},
+		  "parameters":[{
+		    "name":"ni",
+			"in":"path",
+			"required":true,
+			"type":"number",
+			"description":"Número de inscrição no CNPJ"}],
+		  "x-auth-type":"Application & Application User",
+		  "x-throttling-tier":"Unlimited"
+		}
+	   }
+	 },
+	 "schemes":["https","http"],
+	 "swagger":"2.0",
+	 "definitions":{
+	   "Telefone":{
+	     "properties":{
+		   "ddd":{"type":"string"},
+		   "numero":{"type":"string"}},
+		   "type":"object"},
+		   "Property":{
+		     "properties":{
+			   "codigo":{
+			     "type":"string"},
+			   "descricao":{"type":"string"}},
+			   "type":"object"},
+			   "Endereco":{
+			     "properties":{
+				   "bairro":{"type":"string"},
+				   "complemento":{"type":"string"},
+				   "cep":{"type":"string"},
+				   "municipio":{"type":"string"},
+				   "uf":{"type":"string"},
+				   "logradouro":{"type":"string"},
+				   "numero":{"type":"string"}},
+				 "type":"object"},
+			   "CNPJ":{
+				 "properties":{
+				   "cnae_secundarias":{
+				     "items":{
+					   "$ref":"#/definitions/Property"},
+					   "type":"array"},
+					 "ente_federativo":{"type":"string"},
+					 "qt_comprovante":{"type":"string"},
+					 "data_situacao_especial":{"type":"string"},
+					 "porte":{"type":"string"},
+					 "tipo_estabelecimento":{"type":"string"},
+					 "telefones":{"items":{"$ref":"#/definitions/Telefone"},"type":"array"},
+					 "data_abertura":{"type":"string"},
+					 "correio_eletronico":{"type":"string"},
+					 "qt_certidao":{"type":"string"},
+					 "situacao_cadastral":{"$ref":"#/definitions/SituacaoCadastral"},
+					 "cnae_principal":{"$ref":"#/definitions/Property"},
+					 "nome_empresarial":{"type":"string"},
+					 "capital_social":{"type":"string"},
+					 "natureza_juridica":{"$ref":"#/definitions/Property"},
+					 "nome_fantasia":{"type":"string"},
+					 "situacao_especial":{"type":"string"},
+					 "orgao":{"type":"string"},
+					 "ni":{"type":"string"},
+					 "endereco":{"$ref":"#/definitions/Endereco"}},"type":"object"},
+			   "SituacaoCadastral":{
+				 "properties":{"codigo":{"type":"string"},
+				 "motivo":{"type":"string"},
+				 "data":{"type":"string"}},"type":"object"}
+	  },
+	  "consumes":["application/json"],
+	  "securityDefinitions":{
+		  "Bearer" : {
+		  "type": "apiKey",
+		  "name": "Authorization",
+		  "in": "header" }
+	  },
+	  "info":{"title":"Consulta CNPJ","description":"#Consulta CNPJ\n# API de acesso aos dados do Cadastro de CNPJ, em tempo real, diretamente das bases de Governo. \n#destaque","version":"1"
+	  }
+}

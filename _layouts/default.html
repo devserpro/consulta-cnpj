@@ -82,7 +82,7 @@
 	.jPopup > .content {
 		right: 0px !important;
 		top: 0px !important; 
-		height: 1300px !important; 
+		/*height: 1300px !important; */
 		overflow-y: auto;
 		padding-left: 3px !important;
 		padding-right: 0px !important;
@@ -131,10 +131,8 @@
         {% endif %}
         
         <div style="width: 100%; text-align: center;">
-          <img src="https://raw.githubusercontent.com/devserpro/consulta-cnpj/master/img/logo-consulta-cnpj.png" style="width: 70%;" title="API Consulta CNPJ" />
-          <br /><br /><br />
-          <button title="Teste a API" class="openPopup botao01" style="margin-bottom: 10px !important;">DEMONSTRAÇÃO</button> <br />
-
+          <img id="imgLogoApi" src="https://raw.githubusercontent.com/devserpro/consulta-cnpj/master/img/logo-consulta-cnpj.png" style="width: 70%;" title="API Consulta CNPJ" />
+          <button title="Teste a API" id="testeApi" class="openPopup botao01" style="clear: both; margin-top: 15px; margin-bottom: 10px !important;">DEMONSTRAÇÃO</button> <br />
 		</div>
         
       </header>
@@ -183,20 +181,42 @@
     }
     window.onload = function() {
       var bearer = getParameterByName('bearer');
-      if (bearer != null) {
-        var exec = "curl -X GET --header \"Accept: application/json\" --header \"Authorization: Bearer " + bearer +"\" \"https://apigateway.serpro.gov.br/consulta-cnpj/v1/99999999999999\"";
-        var div = document.getElementsByClassName('language-curlBearer');
+	  var amb = getParameterByName('amb');
+      if (bearer != null && amb != null) {
+		var exec;
+		if (amb == 1) {
+			exec = "curl -X GET --header \"Accept: application/json\" --header \"Authorization: Bearer " + bearer +"\" \"https://apigateway.serpro.gov.br/consulta-cnpj/v1/99999999999999\"";
+			var div = document.getElementsByClassName('language-trialSpanCNPJs');
+			var divTrial = div[0];
+			divTrial.parentElement.style = 'display: none';
+			var logoImg = document.getElementById("imgLogoApi");
+			logoImg.src = "https://raw.githubusercontent.com/devserpro/consulta-cpf/master/img/logo-consulta-cnpj.png";
+		} else if (amb == 2) {
+			exec = "curl -X GET --header \"Accept: application/json\" --header \"Authorization: Bearer " + bearer +"\" \"https://apigateway.serpro.gov.br/consulta-cnpj/v1/99999999999999\"";
+			document.getElementById('trialSpan').innerHTML = ' - TRIAL';
+			var logoImg = document.getElementById("imgLogoApi");
+			logoImg.src = "https://raw.githubusercontent.com/devserpro/consulta-cpf/master/img/logo-consulta-cnpj-trial.png";
+		}
+		var div = document.getElementsByClassName('language-curlBearer');
         var divBearer = div[0];
         divBearer.innerHTML = exec;
         var div2 = document.getElementsByClassName('bearer');
         var div2Bearer = div2[0];
         div2Bearer.innerHTML = bearer;
       } else {
-	      
+	    document.getElementById("testeApi").style = "display: none";
       }
     };
     
     document.querySelector('.openPopup').addEventListener('click', function() {
+	
+	var amb = getParameterByName('amb');
+	var urlSwagger;
+	if (amb == 1) {
+		urlSwagger = "https://cdn.rawgit.com/devserpro/consulta-cnpj/master/_layouts/swagger-cnpj.json";
+	} else if (amb == 2) {
+		urlSwagger = "https://cdn.rawgit.com/devserpro/consulta-cnpj/master/_layouts/swagger-cnpj-trial.json";
+	}
 	window.scrollTo(0, 0);
 	var jPopupDemo = new jPopup({
 		contentHtml: '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="position:absolute;width:0;height:0">\
@@ -229,7 +249,7 @@
 
 		});
 	    const ui = SwaggerUIBundle({
-				url: "https://cdn.rawgit.com/devserpro/consulta-cnpj/master/_layouts/swagger-cnpj.json",
+				url: urlSwagger,
 				dom_id: '#swagger-ui',
 				/*onComplete: function(swaggerApi, swaggerUi) {
 					var bearerValue = getParameterByName("bearer"); == null ? '' : getParameterByName("bearer")), "header");
@@ -266,6 +286,25 @@
 			  
 			  //var authKey = new ApiKeyAuthorization('Authorization', 'Bearer ' + (getParameterByName("bearer") == null ? '' : getParameterByName("bearer")), 'header');
 			  //window.authorizations.add('apiKey', authKey);
+			  
+			//var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+			//var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+			
+			var w = window,
+			d = document,
+			e = d.documentElement,
+			g = d.getElementsByTagName('body')[0],
+			x = w.innerWidth || e.clientWidth || g.clientWidth,
+			y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+			
+			var divPopUp = document.getElementsByClassName('content');
+			var janelaPopup = divPopUp[0];
+			
+			var alt = (y*2);
+			var marginTop = (653 * alt)/1300;
+			document.getElementById('swagger-ui').style="margin-top: " + marginTop + "px; height: 100%; width: 100%;"
+			
+			janelaPopup.style = "height: " + (y*2) + "px; width: " + x + "px;";
     });
     </script>
   </body>

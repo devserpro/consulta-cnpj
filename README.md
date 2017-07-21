@@ -156,3 +156,19 @@ Nesse caso, espera-se que a resposta seja a seguinte:
 }
 ```
 
+```trialSpanCNPJs
+CNPJ's para ambiente TRIAL:
+
+1) 34238864000168
+2) 54447820000155
+3) 46768703000165
+4) 31151791000184
+5) 34428654000132
+6) 06115832000130
+7) 78078291000128
+8) 52293473000128
+9) 07781066000105
+10) 60367129000164
+
+Atenção: Os CNPJs acima foram gerados aleatoriamente contendo apenas dados fictícios.
+```
