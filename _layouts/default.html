@@ -190,12 +190,12 @@
 			var divTrial = div[0];
 			divTrial.parentElement.style = 'display: none';
 			var logoImg = document.getElementById("imgLogoApi");
-			logoImg.src = "https://raw.githubusercontent.com/devserpro/consulta-cpf/master/img/logo-consulta-cnpj.png";
+			logoImg.src = "https://raw.githubusercontent.com/devserpro/consulta-cnpj/master/img/logo-consulta-cnpj.png";
 		} else if (amb == 2) {
 			exec = "curl -X GET --header \"Accept: application/json\" --header \"Authorization: Bearer " + bearer +"\" \"https://apigateway.serpro.gov.br/consulta-cnpj/v1/99999999999999\"";
 			document.getElementById('trialSpan').innerHTML = ' - TRIAL';
 			var logoImg = document.getElementById("imgLogoApi");
-			logoImg.src = "https://raw.githubusercontent.com/devserpro/consulta-cpf/master/img/logo-consulta-cnpj-trial.png";
+			logoImg.src = "https://raw.githubusercontent.com/devserpro/consulta-cnpj/master/img/logo-consulta-cnpj-trial.png";
 		}
 		var div = document.getElementsByClassName('language-curlBearer');
         var divBearer = div[0];
