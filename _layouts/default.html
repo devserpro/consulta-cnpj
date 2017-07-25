@@ -193,13 +193,16 @@
 			logoImg.src = "https://raw.githubusercontent.com/devserpro/consulta-cnpj/master/img/logo-consulta-cnpj.png";
 			document.getElementById('trialSpanUrl').innerHTML = '';
 			document.getElementById('trialSpanVersao').innerHTML = 'v1';
+			document.getElementById('trialSpanVersao2').innerHTML = 'v1';
 		} else if (amb == 2) {
 			exec = "curl -X GET --header \"Accept: application/json\" --header \"Authorization: Bearer " + bearer +"\" \"https://apigateway.serpro.gov.br/consulta-cnpj/v1/99999999999999\"";
 			document.getElementById('trialSpan').innerHTML = ' - TRIAL';
 			var logoImg = document.getElementById("imgLogoApi");
 			logoImg.src = "https://raw.githubusercontent.com/devserpro/consulta-cnpj/master/img/logo-consulta-cnpj-trial.png";
 			document.getElementById('trialSpanUrl').innerHTML = '-trial';
+			document.getElementById('trialSpanUrl2').innerHTML = '-trial';
 			document.getElementById('trialSpanVersao').innerHTML = '1';
+			document.getElementById('trialSpanVersao2').innerHTML = '1';
 		}
 		var div = document.getElementsByClassName('language-curlBearer');
         var divBearer = div[0];
