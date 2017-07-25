@@ -65,7 +65,7 @@ No exemplo acima foram utilizados os seguintes parametros:
 
 **[HEADER] Authorization: Bearer <span class="bearer">c66a7de41c96f7008a0c397dc588b6d7</span>** - Informamos o token de acesso recebido
 
-**[GET] https://apigateway.serpro.gov.br/consulta-cnpj/v1/cnpj/99999999999999**: chamamos a url da API informando o CNPJ. No caso a url é "consulta-cnpj/v1/cnpj/{numero do CNPJ}"
+**[GET] https://apigateway.serpro.gov.br/consulta-cnpj<span id="trialSpanUrl"></span>/<span id="trialSpanVersao"></span>/cnpj/99999999999999**: chamamos a url da API informando o CNPJ. No caso a url é "consulta-cnpj<span id="trialSpanUrl"></span>/<span id="trialSpanVersao"></span>/cnpj/{numero do CNPJ}"
 
 Nesse caso, espera-se que a resposta seja a seguinte:
 
