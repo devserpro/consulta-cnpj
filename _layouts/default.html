@@ -97,6 +97,7 @@
 	
 	.jPopup > .jCloseBtn > svg {
 		fill: black !important;
+		text-shadow: 2px 2px 4px #000000;
 	}
 	
 	.swagger-ui .scheme-container, .scheme-container {
@@ -105,6 +106,10 @@
 	
 	.swagger-ui .swagger-container {
 		margin-bottom: 10px !important;
+	}
+	
+	.swagger-ui > div > .wrapper > section, .swagger-ui > div > .wrapper > section > section {
+		width: 100% !important;
 	}
     </style>
   </head>
@@ -155,11 +160,9 @@
     </div>
     <script src="{{ '/assets/js/scale.fix.js' | relative_url }}"></script>
     <script src="https://cdn.rawgit.com/devserpro/api-siafi/master/_layouts/js/jPopup.min.js"></script>
-    <script src="https://cdn.rawgit.com/devserpro/api-siafi/master/_layouts/js/swagger2/swagger-ui-bundle-final.js"></script>
+    <script src="https://cdn.rawgit.com/devserpro/api-siafi/master/_layouts/js/swagger2/swagger-ui-bundle-final18.js"></script>
     <script src="https://cdn.rawgit.com/devserpro/api-siafi/master/_layouts/js/swagger2/swagger-ui-standalone-preset.js"></script>
 
-	  
-  
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -217,7 +220,13 @@
     
     document.querySelector('.openPopup').addEventListener('click', function() {
 	
+	var idReq = getParameterByName('id');
 	var amb = getParameterByName('amb');
+	ga('send', 'event', {
+		eventCategory: 'Demonstração',
+		eventAction: 'openModal',
+		eventLabel: "Id: " + idReq + " | Ambiente: " + amb
+	});
 	var urlSwagger;
 	if (amb == 1) {
 		urlSwagger = "https://cdn.rawgit.com/devserpro/consulta-cnpj/master/_layouts/swagger-cnpj.json";
