@@ -111,6 +111,10 @@
 	.swagger-ui > div > .wrapper > section, .swagger-ui > div > .wrapper > section > section {
 		width: 100% !important;
 	}
+	
+	video.loading {
+		background: white url(https://cdn.rawgit.com/devserpro/radar/master/assets/img/loader.gif) center center no-repeat;
+	}
     </style>
   </head>
   <body>
@@ -138,6 +142,7 @@
         <div style="width: 100%; text-align: center;">
           <img id="imgLogoApi" src="https://raw.githubusercontent.com/devserpro/consulta-cnpj/master/img/logo-consulta-cnpj.png" style="width: 70%;" title="API Consulta CNPJ" />
           <button title="Teste a API" id="testeApi" class="openPopup botao01" style="clear: both; margin-top: 15px; margin-bottom: 10px !important;">DEMONSTRAÇÃO</button> <br />
+		  <button title="Como Testar" id="testeVideo" class="openPopup2 botao01" style="clear: both; margin-top: 5px; margin-bottom: 10px !important;">SAIBA COMO TESTAR</button> <br />
 		</div>
         
       </header>
@@ -215,8 +220,42 @@
         div2Bearer.innerHTML = bearer;
       } else {
 	    document.getElementById("testeApi").style = "display: none";
+		document.getElementById("testeVideo").style = "display: none";
       }
     };
+	
+	document.querySelector('.openPopup2').addEventListener('click', function() {
+	
+		var idReq = getParameterByName('id');
+		var amb = getParameterByName('amb');
+		ga('send', 'event', {
+			eventCategory: 'Video Play',
+			eventAction: 'play',
+			eventLabel: "Id: " + idReq + " | Ambiente: " + amb
+		});
+		window.scrollTo(0, 0);
+		var jPopupDemo2 = new jPopup({
+			contentHtml:'<video src="https://github.com/devserpro/consulta-cnpj/blob/master/API%20CNPJ.mp4?raw=true" id="video" controls>\
+					<source id="videoSource" type="video/mp4" />\
+					Seu navegador não suporta videos HTML5.\
+				</video>\
+			'
+		});
+		
+		var w = window,
+			d = document,
+			e = d.documentElement,
+			g = d.getElementsByTagName('body')[0],
+			x = w.innerWidth || e.clientWidth || g.clientWidth,
+			y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+		var divPopUp = document.getElementsByClassName('content');
+		var janelaPopup = divPopUp[0];
+		var alt = (y*2);
+		var marginTop = (653 * alt)/1300;
+		document.getElementById('video').style="margin-top: " + marginTop + "px;"
+		janelaPopup.style = "height: " + (y*2) + "px; width: " + x + "px; text-align: center;";
+		
+	});
     
     document.querySelector('.openPopup').addEventListener('click', function() {
 	
