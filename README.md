@@ -35,7 +35,7 @@ A chave informada no exemplo acima "ZGphUjIxUEdvWXAxaXlLMm4yQUNPSD
 lSRWRVYjpPYlJzQUpXT0w0ZnYyVHAyN0QxdmQ4ZkIzT3RlCg==" é resultado do BASE64 dos códigos Consumer Key e Consumer Secret separados pelo caracter “:”, conforme exemplo a seguir como linha de comando do Linux:
 
 ```curl
-echo "djaR21PGoYp1iyK2n2ACOH9REdUb:ObRsAJWOL4fv2Tp27D1vd8fB3Ote" | base64
+echo -n "djaR21PGoYp1iyK2n2ACOH9REdUb:ObRsAJWOL4fv2Tp27D1vd8fB3Ote" | base64
 ```
 
 **Receba o Token**
