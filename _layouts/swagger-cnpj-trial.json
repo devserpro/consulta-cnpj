@@ -62,7 +62,7 @@
   },
   "schemes": [
     "https"
-  ], 
+  ],
   "consumes": [
     "application/json"
   ],
@@ -74,6 +74,7 @@
           "type": "string",
           "description": "Ex: 99999999999"
         },
+        "nome": {
           "type": "string",
           "description": "Ex: PESSOA FISICA DA SILVA"
         },
