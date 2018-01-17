@@ -12,7 +12,14 @@ info:
   title: Consulta Massiva CNPJ (consulta-cnpj)
   description: |-
     O serviço `Consulta Massiva CNPJ` é disponibilizado através do `HTTP REST` oferencendo operação de consulta às informações cadastrais de Pessoas Jurídicas no Brasil.
-    ## Códigos de Retorno
+    <br>
+      ## Detalhamento do CNPJ
+    
+      Para um detalhamento do CNPJ acesse o link:
+      https://github.com/devserpro/consulta-cnpj/blob/master/_layouts/detalhamento-CNPJ.odt
+    <br>   
+
+      ## Códigos de Retorno
     | Código de retorno | Resumido | Explicação |
     | ------------- |:--------------------|:-----------------------------------------------------------------------------|
     | 200           | OK                  | Tudo funcionou como esperado e as informações de Pessoa Jurídica foram disponibilizadas.                                               |
@@ -23,12 +30,7 @@ info:
 
     ---------------
     <br>
-      ## Detalhamento do CNPJ
-    
-      Para um detalhamento do CNPJ acesse o link:
-      https://github.com/devserpro/consulta-cnpj/blob/master/_layouts/detalhamento-CNPJ.odt
-     <br>
-    ## Solicitando assinatura com Carimbo de Tempo
+      ## Solicitando assinatura com Carimbo de Tempo
 
       Caso deseje que sua solicitação venha com uma assinatura de Carimbo de Tempo, basta incluir, no cabeçalho de sua requisição, a informação `signature: 1`.
       
