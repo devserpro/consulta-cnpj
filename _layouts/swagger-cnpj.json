@@ -32,6 +32,12 @@
             "type": "string",
             "required": true,
             "in": "path"
+          },
+          {
+            "description": "Solicitação de assinatura de carimbo de tempo. Informe 1 para assinar, ou deixe em branco para não assinar.",
+            "name": "signature",
+            "in": "header",
+            "type": "string"
           }
         ],
         "responses": {
@@ -61,6 +67,12 @@
             "in": "path",
             "required": true,
             "type": "number"
+          },
+          {
+            "description": "Solicitação de assinatura de carimbo de tempo. Informe 1 para assinar, ou deixe em branco para não assinar.",
+            "name": "signature",
+            "in": "header",
+            "type": "string"
           }
         ],
         "responses": {
