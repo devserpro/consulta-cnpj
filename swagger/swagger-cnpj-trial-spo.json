@@ -1,259 +1,224 @@
 {
-    "host": "gateway.apiserpro.serpro.gov.br",
-    "security": [
-        {
-            "Bearer": []
-        }
-    ],
-    "securityDefinitions": {
-        "Bearer": {
-            "type": "apiKey",
-            "name": "Authorization",
-            "in": "header"
-        }
-    },
-    "swagger": "2.0",
-    "info": {
-        "version": "1.0.0",
-        "title": "Consulta Massiva CNPJ (consulta-cnpj)",
-        "description": "\nPara informações de como se autenticar antes de consumir as API, por favor, consulte a documentação em: https://servicos.serpro.gov.br/api-serpro/biblioteca/arquivos/como-autenticar-documentacao-api.pdf\n\n  \nO serviço `Consulta Massiva CNPJ` é disponibilizado através do `HTTP REST` oferencendo operação de consulta às informações cadastrais de Pessoas Jurídicas no Brasil.\n<br>\n  ## Detalhamento do CNPJ\n\n  Para um detalhamento do CNPJ acesse o link:\n  https://github.com/devserpro/consulta-cnpj/raw/master/_layouts/detalhamento-CNPJ.odt\n <br>\n## Códigos de Retorno\n| Código de retorno | Resumido | Explicação |\n| ------------- |:--------------------|:-----------------------------------------------------------------------------|\n| 200           | OK                  | Tudo funcionou como esperado e as informações de Pessoa Jurídica foram disponibilizadas.                                               |\n| 400           | Requisição inválida | O Número de Inscrição do CNPJ informado não é válido. |\n| 404           | Não encontrado      | Não existe CNPJ com o Número de Inscrição informado |\n| 500           | Erro no servidor    | Ocorreu algum erro interno.      |\n| 503           | Serviço Indisponível     |  Algum serviço integrado ao Consulta Massiva CNPJ está indisponível no momento.                         |\n------------------------\n<br>\n\n## Solicitando assinatura com Carimbo de Tempo\n\n  Caso deseje que sua solicitação venha com uma assinatura de Carimbo de Tempo, basta incluir, no cabeçalho de sua requisição, a informação `x-signature: 1`.\n  \n  A assinatura será retornada no cabeçalho da resposta, com o nome `stamp`.\n\n<br>\n## Verificando assinatura com Carimbo de Tempo\n\n  Para verificar assinatura de carimbo de tempo, siga as instruções da documentação abaixo:\n  \n##### link-timestamp\n<br>     \n \n## Endereço de Produção\n \n    https://gateway.apiserpro.serpro.gov.br/consulta-cnpj/v1/\n   \n<br>\n## Endereço de Degustação\n\n    https://gateway.apiserpro.serpro.gov.br/consulta-cnpj-trial/1/\n    \n<br>\n### NI para Degustação\n| NI |\n| ---------------------- |\n| 34238864000168 |\n| 54447820000155 |\n| 46768703000165 |\n| 31151791000184 |\n| 34428654000132 |\n| 06115832000130 |\n| 78078291000128 |\n| 52293473000128 |\n| 07781066000105 |\n| 60367129000164 |\n --------------------------     \n\n## Exemplo\n\n  #### Chamada\n  \n    [GET] https://gateway.apiserpro.serpro.gov.br/consulta-cnpj-trial/1/cnpj/34238864000168\n    \n  #### Retorno\n  \n    {\n       \"ni\":\"34238864000168\",\n       \"data_abertura\":\"1967-06-30\",\n       \"nome_empresarial\":\"SERVICO DE E-COMERCE LTDA\",\n       \"nome_fantasia\":\"E-COMERCE\",\n       \"cnae_principal\":{\n          \"codigo\":\"6204000\",\n          \"descricao\":\"Consultoria em e-comerce\"\n       },\n       \"natureza_juridica\":{\n          \"codigo\":\"2011\",\n          \"descricao\":\"Empresa Privada\"\n       },\n       \"endereco\":{\n          \"logradouro\":\"ST DE GRANDE AREA NORTE\",\n          \"numero\":\"Q.601\",\n          \"complemento\":\"LOTE V\",\n          \"cep\":\"70836900\",\n          \"bairro\":\"ASA NORTE\",\n          \"municipio\":\"BRASILIA\",\n          \"uf\":\"DF\"\n       },\n       \"situacao_especial\":\"\",\n       \"situacao_cadastral\":{\n          \"codigo\":\"2\",\n          \"data\":\"2004-05-22\",\n          \"motivo\":\"\"\n       },\n       \"orgao\":\"0110100\",\n       \"tipo_estabelecimento\":\"1\",\n       \"correio_eletronico\":\"\",\n       \"capital_social\":0,\n       \"porte\":\"05\",\n       \"telefones\":[\n          {\n             \"ddd\":\"061\",\n             \"numero\":\"4338456\"\n          }\n       ],\n       \"nome_orgao\":\"BRASILIA\",\n       \"ente_federativo\":\"BR\"\n    }"
-    },
-    "basePath": "/consulta-cnpj-trial/1",
-    "paths": {
-        "/cnpj/{ni}": {
-            "get": {
-                "x-auth-type": "Application & Application User",
-                "x-throttling-tier": "Unlimited",
-                "description": "Retorna os dados do Cadastro Nacional de Pessoa Jurídica (CNPJ)",
-                "parameters": [
-                    {
-                        "description": "Número de inscrição no CNPJ",
-                        "name": "ni",
-                        "type": "string",
-                        "required": true,
-                        "in": "path"
-                    },
-                    {
-                        "description": "Solicitação de assinatura de carimbo de tempo. Informe 1 para assinar, ou deixe em branco para não assinar.",
-                        "name": "x-signature",
-                        "in": "header",
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/CNPJ"
-                        },
-                        "description": "Retorna os dados da Pessoa Jurídica"
-                    },
-                    "400": {
-                        "description": "O Número de Inscrição informado não é válido"
-                    },
-                    "404": {
-                        "description": "Não existe Pessoa Jurídica com o Número de Inscrição informado"
-                    }
-                }
-            }
-        },
-        "/cnpj/{ni}/socios": {
-            "get": {
-                "x-auth-type": "Application & Application User",
-                "x-throttling-tier": "Unlimited",
-                "parameters": [
-                    {
-                        "description": "Número de inscrição no CNPJ",
-                        "name": "ni",
-                        "in": "path",
-                        "required": true,
-                        "type": "number"
-                    },
-                    {
-                        "description": "Solicitação de assinatura de carimbo de tempo. Informe 1 para assinar, ou deixe em branco para não assinar.",
-                        "name": "x-signature",
-                        "in": "header",
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/CNPJ"
-                        },
-                        "description": "Retorna os dados do Quadro Societário da Pessoa Jurídica"
-                    },
-                    "400": {
-                        "description": "O Número de Inscrição informado não é válido"
-                    },
-                    "404": {
-                        "description": "Não existe Pessoa Jurídica com o Número de Inscrição informado"
-                    }
-                }
-            }
-        }
-    },
-    "schemes": [
-        "https"
-    ],
-    "definitions": {
-        "CNPJ": {
-            "properties": {
-                "ni": {
-                    "type": "string"
-                },
-                "data_abertura": {
-                    "type": "string"
-                },
-                "nome_empresarial": {
-                    "type": "string"
-                },
-                "nome_fantasia": {
-                    "type": "string"
-                },
-                "cnae_principal": {
-                    "$ref": "#/definitions/CodigoDescricao"
-                },
-                "natureza_juridica": {
-                    "$ref": "#/definitions/CodigoDescricao"
-                },
-                "endereco": {
-                    "$ref": "#/definitions/Endereco"
-                },
-                "situacao_especial": {
-                    "type": "string"
-                },
-                "situacao_cadastral": {
-                    "$ref": "#/definitions/SituacaoCadastral"
-                },
-                "orgao": {
-                    "type": "string"
-                },
-                "tipo_estabelecimento": {
-                    "type": "string"
-                },
-                "correio_eletronico": {
-                    "type": "string"
-                },
-                "capital_social": {
-                    "type": "string"
-                },
-                "porte": {
-                    "type": "string"
-                },
-                "telefones": {
-                    "items": {
-                        "$ref": "#/definitions/Telefone"
-                    },
-                    "type": "array"
-                },
-                "cnae_secundarias": {
-                    "items": {
-                        "$ref": "#/definitions/CodigoDescricao"
-                    },
-                    "type": "array"
-                },
-                "nome_orgao": {
-                    "type": "string"
-                },
-                "ente_federativo": {
-                    "type": "string"
-                },
-                "data_situacao_especial": {
-                    "type": "string"
-                },
-                "socios": {
-                    "items": {
-                        "$ref": "#/definitions/Socios"
-                    },
-                    "type": "array"
-                }
-            },
-            "type": "object"
-        },
-        "CodigoDescricao": {
-            "properties": {
-                "codigo": {
-                    "type": "string"
-                },
-                "descricao": {
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "Endereco": {
-            "properties": {
-                "bairro": {
-                    "type": "string"
-                },
-                "complemento": {
-                    "type": "string"
-                },
-                "cep": {
-                    "type": "string"
-                },
-                "municipio": {
-                    "type": "string"
-                },
-                "uf": {
-                    "type": "string"
-                },
-                "logradouro": {
-                    "type": "string"
-                },
-                "numero": {
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "SituacaoCadastral": {
-            "properties": {
-                "codigo": {
-                    "type": "string"
-                },
-                "motivo": {
-                    "type": "string"
-                },
-                "data": {
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "Socios": {
-            "properties": {
-                "nome": {
-                    "type": "string"
-                },
-                "qualificacao": {
-                    "type": "string"
-                },
-                "captalSocial": {
-                    "type": "string"
-                },
-                "codigoPais": {
-                    "type": "string"
-                },
-                "qualificacaoRepLegal": {
-                    "type": "string"
-                },
-                "nomeRepLegal": {
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "Telefone": {
-            "properties": {
-                "ddd": {
-                    "type": "string"
-                },
-                "numero": {
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        }
+  "host": "gateway.apiserpro.serpro.gov.br",
+  "security": [
+    {
+      "Bearer": []
     }
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Consulta Massiva CNPJ (consulta-cnpj)",
+    "description": "\nPara informações de como se autenticar antes de consumir as API, por favor, consulte a documentação em: https://servicos.serpro.gov.br/api-serpro/biblioteca/arquivos/como-autenticar-documentacao-api.pdf\n\n  \nO serviço `Consulta Massiva CNPJ` é disponibilizado através do `HTTP REST` oferencendo operação de consulta às informações cadastrais de Pessoas Jurídicas no Brasil.\n<br>\n  ## Detalhamento do CNPJ\n\n  Para um detalhamento do CNPJ acesse o link:\n  https://github.com/devserpro/consulta-cnpj/raw/master/_layouts/detalhamento-CNPJ.odt\n <br>\n## Códigos de Retorno\n| Código de retorno | Resumido | Explicação |\n| ------------- |:--------------------|:-----------------------------------------------------------------------------|\n| 200           | OK                  | Tudo funcionou como esperado e as informações de Pessoa Jurídica foram disponibilizadas.                                               |\n| 400           | Requisição inválida | O Número de Inscrição do CNPJ informado não é válido. |\n| 404           | Não encontrado      | Não existe CNPJ com o Número de Inscrição informado |\n| 500           | Erro no servidor    | Ocorreu algum erro interno.      |\n| 503           | Serviço Indisponível     |  Algum serviço integrado ao Consulta Massiva CNPJ está indisponível no momento.                         |\n------------------------\n<br>\n\n## Solicitando assinatura com Carimbo de Tempo\n\n  Caso deseje que sua solicitação venha com uma assinatura de Carimbo de Tempo, basta incluir, no cabeçalho de sua requisição, a informação `x-signature: 1`.\n  \n  A assinatura será retornada no cabeçalho da resposta, com o nome `stamp`.\n\n<br>\n## Verificando assinatura com Carimbo de Tempo\n\n  Para verificar assinatura de carimbo de tempo, siga as instruções da documentação abaixo:\n  \n##### link-timestamp\n<br>     \n \n## Endereço de Produção\n \n    https://gateway.apiserpro.serpro.gov.br/consulta-cnpj/v1/\n   \n<br>\n## Endereço de Degustação\n\n    https://gateway.apiserpro.serpro.gov.br/consulta-cnpj-trial/1/\n    \n<br>\n### NI para Degustação\n| NI |\n| ---------------------- |\n| 34238864000168 |\n| 54447820000155 |\n| 46768703000165 |\n| 31151791000184 |\n| 34428654000132 |\n| 06115832000130 |\n| 78078291000128 |\n| 52293473000128 |\n| 07781066000105 |\n| 60367129000164 |\n --------------------------     \n\n## Exemplo\n\n  #### Chamada\n  \n    [GET] https://gateway.apiserpro.serpro.gov.br/consulta-cnpj-trial/1/cnpj/34238864000168\n    \n  #### Retorno\n  \n    {\n       \"ni\":\"34238864000168\",\n       \"data_abertura\":\"1967-06-30\",\n       \"nome_empresarial\":\"SERVICO DE E-COMERCE LTDA\",\n       \"nome_fantasia\":\"E-COMERCE\",\n       \"cnae_principal\":{\n          \"codigo\":\"6204000\",\n          \"descricao\":\"Consultoria em e-comerce\"\n       },\n       \"natureza_juridica\":{\n          \"codigo\":\"2011\",\n          \"descricao\":\"Empresa Privada\"\n       },\n       \"endereco\":{\n          \"logradouro\":\"ST DE GRANDE AREA NORTE\",\n          \"numero\":\"Q.601\",\n          \"complemento\":\"LOTE V\",\n          \"cep\":\"70836900\",\n          \"bairro\":\"ASA NORTE\",\n          \"municipio\":\"BRASILIA\",\n          \"uf\":\"DF\"\n       },\n       \"situacao_especial\":\"\",\n       \"situacao_cadastral\":{\n          \"codigo\":\"2\",\n          \"data\":\"2004-05-22\",\n          \"motivo\":\"\"\n       },\n       \"orgao\":\"0110100\",\n       \"tipo_estabelecimento\":\"1\",\n       \"correio_eletronico\":\"\",\n       \"capital_social\":0,\n       \"porte\":\"05\",\n       \"telefones\":[\n          {\n             \"ddd\":\"061\",\n             \"numero\":\"4338456\"\n          }\n       ],\n       \"nome_orgao\":\"BRASILIA\",\n       \"ente_federativo\":\"BR\"\n    }"
+  },
+  "basePath": "/consulta-cnpj-trial/1",
+  "paths": {
+    "/cnpj/{ni}": {
+      "get": {
+        "x-auth-type": "Application & Application User",
+        "x-throttling-tier": "Unlimited",
+        "description": "Retorna os dados do Cadastro Nacional de Pessoa Jurídica (CNPJ)",
+        "parameters": [
+          {
+            "description": "Número de inscrição no CNPJ",
+            "name": "ni",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          },
+          {
+            "description": "Solicitação de assinatura de carimbo de tempo. Informe 1 para assinar, ou deixe em branco para não assinar.",
+            "name": "x-signature",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/CNPJ"
+            },
+            "description": "Retorna os dados da Pessoa Jurídica"
+          },
+          "400": {
+            "description": "O Número de Inscrição informado não é válido"
+          },
+          "404": {
+            "description": "Não existe Pessoa Jurídica com o Número de Inscrição informado"
+          }
+        }
+      }
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "definitions": {
+    "CNPJ": {
+      "properties": {
+        "ni": {
+          "type": "string"
+        },
+        "data_abertura": {
+          "type": "string"
+        },
+        "nome_empresarial": {
+          "type": "string"
+        },
+        "nome_fantasia": {
+          "type": "string"
+        },
+        "cnae_principal": {
+          "$ref": "#/definitions/CodigoDescricao"
+        },
+        "natureza_juridica": {
+          "$ref": "#/definitions/CodigoDescricao"
+        },
+        "endereco": {
+          "$ref": "#/definitions/Endereco"
+        },
+        "situacao_especial": {
+          "type": "string"
+        },
+        "situacao_cadastral": {
+          "$ref": "#/definitions/SituacaoCadastral"
+        },
+        "orgao": {
+          "type": "string"
+        },
+        "tipo_estabelecimento": {
+          "type": "string"
+        },
+        "correio_eletronico": {
+          "type": "string"
+        },
+        "capital_social": {
+          "type": "string"
+        },
+        "porte": {
+          "type": "string"
+        },
+        "telefones": {
+          "items": {
+            "$ref": "#/definitions/Telefone"
+          },
+          "type": "array"
+        },
+        "cnae_secundarias": {
+          "items": {
+            "$ref": "#/definitions/CodigoDescricao"
+          },
+          "type": "array"
+        },
+        "nome_orgao": {
+          "type": "string"
+        },
+        "ente_federativo": {
+          "type": "string"
+        },
+        "data_situacao_especial": {
+          "type": "string"
+        },
+        "socios": {
+          "items": {
+            "$ref": "#/definitions/Socios"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "CodigoDescricao": {
+      "properties": {
+        "codigo": {
+          "type": "string"
+        },
+        "descricao": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Endereco": {
+      "properties": {
+        "bairro": {
+          "type": "string"
+        },
+        "complemento": {
+          "type": "string"
+        },
+        "cep": {
+          "type": "string"
+        },
+        "municipio": {
+          "type": "string"
+        },
+        "uf": {
+          "type": "string"
+        },
+        "logradouro": {
+          "type": "string"
+        },
+        "numero": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "SituacaoCadastral": {
+      "properties": {
+        "codigo": {
+          "type": "string"
+        },
+        "motivo": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Socios": {
+      "properties": {
+        "nome": {
+          "type": "string"
+        },
+        "qualificacao": {
+          "type": "string"
+        },
+        "captalSocial": {
+          "type": "string"
+        },
+        "codigoPais": {
+          "type": "string"
+        },
+        "qualificacaoRepLegal": {
+          "type": "string"
+        },
+        "nomeRepLegal": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Telefone": {
+      "properties": {
+        "ddd": {
+          "type": "string"
+        },
+        "numero": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  }
 }
